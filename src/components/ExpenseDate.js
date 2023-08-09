@@ -1,4 +1,5 @@
 import './ExpenseDate.css';
+
 export default function ExpenseDate(props) {
 	const month = props.date.toLocaleDateString('en-US', { month: 'short' });
 	const year = props.date.toLocaleDateString('en-US', { year: 'numeric' });
