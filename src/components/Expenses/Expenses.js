@@ -7,10 +7,24 @@ import './Expenses.css';
 const Expenses = (props) => {
 	const expenses = props.expenses;
 	const [selectedYearFilter, setSelectedYearFilter] = useState('2020');
+
+	let filteredInfoText = '2019, 2021 & 2022';
+
+	if (selectedYearFilter === '2019') {
+		filteredInfoText = '2020, 2021 & 2022';
+	} else if (selectedYearFilter === '2020') {
+		filteredInfoText = '2019, 2021 & 2022';
+	} else if (selectedYearFilter === '2021') {
+		filteredInfoText = '2019, 2020 & 2022';
+	} else {
+		filteredInfoText = '2019, 2020 & 2021';
+	}
+
 	const filterExpensesHandler = (filterData) => {
 		console.log(filterData);
 		setSelectedYearFilter(filterData);
 	};
+
 	return (
 		<div>
 			<Card className="expenses">
@@ -18,26 +32,7 @@ const Expenses = (props) => {
 					selected={selectedYearFilter}
 					onFilterChange={filterExpensesHandler}
 				/>
-				{/* <ExpenseItem
-				title={expenses[0].title}
-				amount={expenses[0].amount}
-				date={expenses[0].date}
-			/>
-			<ExpenseItem
-				title={expenses[1].title}
-				amount={expenses[1].amount}
-				date={expenses[1].date}
-			/>
-			<ExpenseItem
-				title={expenses[2].title}
-				amount={expenses[2].amount}
-				date={expenses[2].date}
-			/>
-			<ExpenseItem
-				title={expenses[3].title}
-				amount={expenses[3].amount}
-				date={expenses[3].date}
-			/> */}
+				<p>Data for years {filteredInfoText} is hidden</p>
 				{expenses.map((expense, index) => {
 					return (
 						<ExpenseItem
