@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../UI/Card';
-import ExpenseItem from './ExpenseItem';
 import ExpensesFilter from '../ExpensesFilter/ExpensesFilter';
+import ExpensesList from './ExpensesList';
 import './Expenses.css';
 
 const Expenses = (props) => {
@@ -13,23 +13,6 @@ const Expenses = (props) => {
 	const filteredExpenses = expenses.filter((expense) => {
 		return expense.date.getFullYear().toString() === selectedYearFilter;
 	});
-	/* 
-	CONDITIONAL RENDERING
-	*/
-	// JSX content can be stored in variables!
-	let expensesContent = <p>No expenses Found.</p>;
-	if (filteredExpenses.length > 0) {
-		expensesContent = filteredExpenses.map((exp, index) => {
-			return (
-				<ExpenseItem
-					key={exp.id}
-					title={exp.title}
-					amount={exp.amount}
-					date={exp.date}
-				/>
-			);
-		});
-	}
 
 	return (
 		<div>
@@ -38,7 +21,7 @@ const Expenses = (props) => {
 					selected={selectedYearFilter}
 					onFilterChange={filterExpensesHandler}
 				/>
-				{expensesContent}
+				<ExpensesList items={filteredExpenses} />
 			</Card>
 		</div>
 	);
