@@ -13,6 +13,24 @@ const Expenses = (props) => {
 	const filteredExpenses = expenses.filter((expense) => {
 		return expense.date.getFullYear().toString() === selectedYearFilter;
 	});
+	/* 
+	CONDITIONAL RENDERING
+	*/
+	// JSX content can be stored in variables!
+	let expensesContent = <p>No expenses Found.</p>;
+	if (filteredExpenses.length > 0) {
+		expensesContent = filteredExpenses.map((exp, index) => {
+			return (
+				<ExpenseItem
+					key={exp.id}
+					title={exp.title}
+					amount={exp.amount}
+					date={exp.date}
+				/>
+			);
+		});
+	}
+
 	return (
 		<div>
 			<Card className="expenses">
@@ -20,17 +38,7 @@ const Expenses = (props) => {
 					selected={selectedYearFilter}
 					onFilterChange={filterExpensesHandler}
 				/>
-
-				{filteredExpenses.map((exp, index) => {
-					return (
-						<ExpenseItem
-							key={exp.id}
-							title={exp.title}
-							amount={exp.amount}
-							date={exp.date}
-						/>
-					);
-				})}
+				{expensesContent}
 			</Card>
 		</div>
 	);
